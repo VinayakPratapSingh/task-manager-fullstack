@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { AUTH_URL } from "../config";
 
 function ProtectedRoute() {
   const [status, setStatus] = useState("checking");
@@ -7,12 +8,9 @@ function ProtectedRoute() {
   useEffect(() => {
     async function checkAuthentication() {
       try {
-        const response = await fetch(
-          "http://localhost:4000/api/auth/me",
-          {
-            credentials: "include",
-          }
-        );
+        const response = await fetch(`${AUTH_URL}/me`, {
+          credentials: "include",
+        });
 
         if (!response.ok) {
           setStatus("unauthenticated");

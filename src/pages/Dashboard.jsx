@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const API_URL = "http://localhost:4000/api/tasks";
-const AUTH_URL = "http://localhost:4000/api/auth";
+import { AUTH_URL, TASKS_URL } from "../config";
 
 // Convert API responses into readable errors.
 async function readResponse(response, fallbackMessage) {
@@ -55,7 +53,7 @@ function Dashboard() {
       setError("");
       setMessage("");
 
-      const response = await fetch(API_URL, {
+      const response = await fetch(TASKS_URL, {
         credentials: "include",
       });
 
@@ -90,7 +88,7 @@ function Dashboard() {
     try {
       setSaving(true);
 
-      const response = await fetch(API_URL, {
+      const response = await fetch(TASKS_URL, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -128,7 +126,7 @@ function Dashboard() {
     try {
       setUpdatingTaskId(task.id);
 
-      const response = await fetch(`${API_URL}/${task.id}`, {
+      const response = await fetch(`${TASKS_URL}/${task.id}`, {
         method: "PATCH",
         credentials: "include",
         headers: {
@@ -168,7 +166,7 @@ function Dashboard() {
     try {
       setDeletingTaskId(id);
 
-      const response = await fetch(`${API_URL}/${id}`, {
+      const response = await fetch(`${TASKS_URL}/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
